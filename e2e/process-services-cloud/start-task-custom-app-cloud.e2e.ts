@@ -128,7 +128,7 @@ describe('Start Task', () => {
         startTask.clickStartButton();
         tasksCloudDemoPage.editTaskFilterCloudComponent()
             .clickCustomiseFilterHeader()
-            .setStateFilterDropDown('CREATED')
+            .setStatusFilterDropDown('CREATED')
             .clearAssignee();
         tasksCloudDemoPage.taskListCloudComponent().getDataTable().checkContentIsDisplayed(standaloneTaskName);
     });
@@ -141,7 +141,7 @@ describe('Start Task', () => {
         startTask.clickStartButton();
         tasksCloudDemoPage.editTaskFilterCloudComponent()
             .clickCustomiseFilterHeader()
-            .setStateFilterDropDown('CREATED')
+            .setStatusFilterDropDown('CREATED')
             .clearAssignee();
         tasksCloudDemoPage.taskListCloudComponent().getDataTable().waitForTableBody();
         tasksCloudDemoPage.taskListCloudComponent().getDataTable().checkContentIsDisplayed(unassignedTaskName);
