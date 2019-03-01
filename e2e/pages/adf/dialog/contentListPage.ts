@@ -33,7 +33,7 @@ export class ContentListPage {
     actionMenu = element(by.css('div[role="menu"]'));
     optionButton = by.css('button[data-automation-id*="action_menu_"]');
     rowByRowName = by.xpath('ancestor::div[contains(@class, "adf-datatable-row")]');
-    nameColumn = by.css('div[class*="datatable-body"] div[class*="adf-data-table-cell"][title="Display name"]');
+    nameColumn = by.css('div[class*="datatable-body"] div[class*="adf-datatable-cell"][title="Display name"]');
     nameColumnHeader = by.css('div[data-automation-id="auto_id_name"]');
     createdByColumn = by.css('div[class*="--text"][title="Created by"] span');
     sizeColumn = by.css('div[id*="document-list-container"] div[class*="adf-datatable-row"] .adf-filesize-cell');
@@ -443,4 +443,23 @@ export class ContentListPage {
         browser.actions().click(row, protractor.Button.RIGHT).perform();
         Util.waitUntilElementIsVisible(element(by.id('adf-context-menu-content')));
     }
+
+    clickMenuActionNamed(actionName) {
+        let actionButton = this.checkMenuActionIsVisible(actionName);
+        actionButton.click();
+    }
+
+    checkMenuActionIsVisible(actionName) {
+        let actionButton = element(by.css(`button[data-automation-id='DOCUMENT_LIST.ACTIONS.${actionName}']`));
+        Util.waitUntilElementIsVisible(actionButton);
+        Util.waitUntilElementIsClickable(actionButton);
+        return actionButton;
+    }
+
+    clickRowMenuActionsButton(rowName) {
+        let row = this.getRowByRowName(rowName);
+        Util.waitUntilElementIsVisible(row.element(by.css('.adf-datatable__actions-cell button')));
+        row.element(by.css('.adf-datatable__actions-cell button')).click();
+    }
+
 }
