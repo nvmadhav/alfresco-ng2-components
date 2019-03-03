@@ -229,7 +229,7 @@ describe('Upload component', () => {
 
     it('[C287790] Should be possible to cancel upload of a big file through the cancel uploads button', () => {
         browser.executeScript(' setTimeout(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
-            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 3000)');
+            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 7000)');
 
         contentServicesPage.uploadFile(largeFile.location);
 
@@ -238,9 +238,9 @@ describe('Upload component', () => {
         contentServicesPage.checkContentIsNotDisplayed(largeFile.name);
     });
 
-    it('[C272793] Should be able to cancel multiple files upload', () => {
+    fit('[C272793] Should be able to cancel multiple files upload', () => {
         browser.executeScript(' setTimeout(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
-            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 3000)');
+            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 7000)');
 
         uploadToggles.enableMultipleFileUpload();
         contentServicesPage.uploadMultipleFile([pngFileModel.location, largeFile.location]);
