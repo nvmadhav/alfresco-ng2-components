@@ -228,8 +228,8 @@ describe('Upload component', () => {
     });
 
     it('[C287790] Should be possible to cancel upload of a big file through the cancel uploads button', () => {
-        browser.executeScript(' setInterval(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
-            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 1000)');
+        browser.executeScript(' setTimeout(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
+            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 3000)');
 
         contentServicesPage.uploadFile(largeFile.location);
 
@@ -239,14 +239,15 @@ describe('Upload component', () => {
     });
 
     it('[C272793] Should be able to cancel multiple files upload', () => {
-        browser.executeScript(' setInterval(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
-            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 1000)');
+        browser.executeScript(' setTimeout(() => {document.querySelector("#adf-upload-dialog-cancel-all").click();' +
+            'document.querySelector("#adf-upload-dialog-cancel").click();  }, 3000)');
 
         uploadToggles.enableMultipleFileUpload();
-        contentServicesPage.uploadMultipleFile([pngFileModel.location, largeFile.location]);
+        contentServicesPage.uploadMultipleFile([ largeFile.location, largeFile.location]);
         expect(uploadDialog.getTitleText()).toEqual('Upload canceled');
         uploadDialog.clickOnCloseButton().dialogIsNotDisplayed();
-        contentServicesPage.checkContentIsNotDisplayed(pngFileModel.name).checkContentIsNotDisplayed(largeFile.name);
+        contentServicesPage.checkContentIsNotDisplayed(largeFile.name);
+        contentServicesPage.checkContentIsNotDisplayed(largeFile.name);
         uploadToggles.disableMultipleFileUpload();
     });
 
