@@ -25,10 +25,11 @@ import {
     AppConfigService,
     UpdateNotification,
     CardViewUpdateService,
-    StorageService
-} from '@alfresco/adf-core';
+    IdentityUserService } from '@alfresco/adf-core';
 import { TaskHeaderCloudService } from '../services/task-header-cloud.service';
 import { TaskDetailsCloudModel } from '../../start-task/models/task-details-cloud.model';
+import { Router } from '@angular/router';
+import { TaskCloudService } from '../../services/task-cloud.service';
 
 @Component({
     selector: 'adf-cloud-task-header',
@@ -68,7 +69,9 @@ export class TaskHeaderCloudComponent implements OnInit {
         private translationService: TranslationService,
         private appConfig: AppConfigService,
         private cardViewUpdateService: CardViewUpdateService,
-        private storage: StorageService
+        private identityUserService: IdentityUserService,
+        private router: Router,
+        private taskCloudService: TaskCloudService
     ) { }
 
     ngOnInit() {
@@ -80,7 +83,7 @@ export class TaskHeaderCloudComponent implements OnInit {
         this.cardViewUpdateService.itemUpdated$.subscribe(this.updateTaskDetails.bind(this));
     }
     loadCurrentBpmUserId(): any {
-        this.currentUser = this.storage.getItem('USERNAME');
+        this.currentUser = this.identityUserService.getCurrentUserInfo().username;
     }
 
     loadTaskDetailsById(appName: string, taskId: string): any {
@@ -224,58 +227,57 @@ export class TaskHeaderCloudComponent implements OnInit {
     }
 
     isCompleted() {
-        return this.taskDetails && this.taskDetails.status === 'completed';
+        return this.taskDetails && this.taskDetails.status && this.taskDetails.status.toLowerCase() === 'completed';
     }
 
-    isTaskClaimable(): boolean {
-        return !this.hasAssignee() && this.isCandidateMember();
+    canClaimTask() {
+        return this.taskDetails.canClaimTask();
+    }
+
+    canUnclaimTask() {
+        return this.taskDetails.canUnclaimTask(this.currentUser);
+    }
+
+    canCompleteTask() {
+        return this.taskCloudService.canCompleteTask(this.taskDetails);
     }
 
     hasAssignee(): boolean {
         return !!this.taskDetails.assignee ? true : false;
     }
 
-    isCandidateMember() {
-        return this.taskDetails.managerOfCandidateGroup || this.taskDetails.memberOfCandidateGroup || this.taskDetails.memberOfCandidateUsers;
-    }
-
-    isTaskClaimedByCandidateMember(): boolean {
-        return this.isCandidateMember() && this.isAssignedToCurrentUser() && !this.isCompleted();
-    }
-
-    isAssignedToCurrentUser(): boolean {
-        return this.hasAssignee() && this.isAssignedTo(this.currentUser);
-    }
-
-    isAssignedTo(userName): boolean {
-        return this.hasAssignee() ? this.taskDetails.assignee === userName : false;
-    }
-
     isTaskValid() {
         return this.appName && this.taskId;
+    }
+
+    isTaskAssigned() {
+        return this.taskDetails.assignee !== undefined;
     }
 
     isReadOnlyMode() {
         return !this.readOnly;
     }
 
-    claimTask() {
-        this.taskHeaderCloudService.claimTask(this.appName, this.taskId, this.currentUser).subscribe(
-            (res: any) => {
-                this.loadTaskDetailsById(this.appName, this.taskId);
-                this.claim.emit(this.taskId);
-            });
-    }
-
-    unclaimTask() {
-        this.taskHeaderCloudService.unclaimTask(this.appName, this.taskId).subscribe(
-            () => {
-                this.loadTaskDetailsById(this.appName, this.taskId);
-                this.unclaim.emit(this.taskId);
-            });
-    }
-
     private isValidSelection(filteredProperties: string[], cardItem: CardViewBaseItemModel): boolean {
         return filteredProperties ? filteredProperties.indexOf(cardItem.key) >= 0 : true;
     }
+
+    goBack() {
+        this.router.navigate([`/cloud/${this.appName}/`]);
+    }
+
+    onCompletedTask(event: any) {
+        this.goBack();
+    }
+
+    onUnclaimTask() {
+        this.unclaim.emit(this.taskDetails.id);
+        this.goBack();
+    }
+
+    onClaimTask() {
+        this.claim.emit(this.taskDetails.id);
+        this.goBack();
+    }
+
 }

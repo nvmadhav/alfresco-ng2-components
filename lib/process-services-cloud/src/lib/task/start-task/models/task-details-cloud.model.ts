@@ -73,8 +73,33 @@ export class TaskDetailsCloudModel {
             this.memberOfCandidateUsers = obj.memberOfCandidateUsers || null;
         }
     }
+
+    isCompleted() {
+        return this.status && this.status.toUpperCase() === TaskStatusEnum.COMPLETED;
+    }
+
+    isStatusClaimable() {
+        return this.status && (this.status.toUpperCase() === TaskStatusEnum.CREATED || this.status.toUpperCase() === TaskStatusEnum.ASSIGNED);
+    }
+
+    canUnclaimTask(user: string) {
+        return this.assignee === user && (this.status && this.status.toUpperCase() === TaskStatusEnum.ASSIGNED);
+    }
+
+    canClaimTask() {
+        return !this.assignee && this.isStatusClaimable();
+    }
 }
 
 export interface StartTaskCloudResponseModel {
     entry: TaskDetailsCloudModel;
+}
+
+export enum TaskStatusEnum {
+    COMPLETED=  'COMPLETED',
+    DELETED = 'DELETED',
+    CREATED = 'CREATED',
+    ASSIGNED = 'ASSIGNED',
+    SUSPENDED = 'SUSPENDED',
+    CANCELLED = 'CANCELLED'
 }

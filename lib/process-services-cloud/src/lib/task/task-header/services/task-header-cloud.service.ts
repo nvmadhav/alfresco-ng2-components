@@ -95,63 +95,6 @@ export class TaskHeaderCloudService {
         }
     }
 
-    /**
-     * Claims a task for an assignee.
-     * @param appName Name of the app
-     * @param taskId ID of the task to claim
-     * @param assignee User to assign the task to
-     * @returns Details of the claimed task
-     */
-    claimTask(appName: string, taskId: string, assignee: string): any {
-        if (appName && taskId) {
-
-            let queryUrl = `${this.contextRoot}/${appName}-rb/v1/tasks/${taskId}/claim?assignee=${assignee}`;
-            return from(this.alfrescoApiService.getInstance()
-                .oauth2Auth.callCustomApi(queryUrl, 'POST',
-                    null, null, null,
-                    null, null,
-                    this.contentTypes, this.accepts,
-                    this.returnType, null, null)
-            ).pipe(
-                map((res: any) => {
-                    return new TaskDetailsCloudModel(res.entry);
-                }),
-                catchError((err) => this.handleError(err))
-            );
-        } else {
-            this.logService.error('AppName and TaskId are mandatory for querying a task');
-            return throwError('AppName/TaskId not configured');
-        }
-    }
-
-    /**
-     * Un-claims a task.
-     * @param appName Name of the app
-     * @param taskId ID of the task to unclaim
-     * @returns Details of the task that was unclaimed
-     */
-    unclaimTask(appName: string, taskId: string): any {
-        if (appName && taskId) {
-
-            let queryUrl = `${this.contextRoot}/${appName}-rb/v1/tasks/${taskId}/release`;
-            return from(this.alfrescoApiService.getInstance()
-                .oauth2Auth.callCustomApi(queryUrl, 'POST',
-                    null, null, null,
-                    null, null,
-                    this.contentTypes, this.accepts,
-                    this.returnType, null, null)
-            ).pipe(
-                map((res: any) => {
-                    return new TaskDetailsCloudModel(res.entry);
-                }),
-                catchError((err) => this.handleError(err))
-            );
-        } else {
-            this.logService.error('AppName and TaskId are mandatory for querying a task');
-            return throwError('AppName/TaskId not configured');
-        }
-    }
-
     private handleError(error: any) {
         this.logService.error(error);
         return throwError(error || 'Server error');

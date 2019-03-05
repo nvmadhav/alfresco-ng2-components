@@ -5,7 +5,7 @@ Status: Experimental
 Last reviewed: 2019-01-08
 ---
 
-# [Start Task Cloud Component](../../lib/process-services-cloud/src/lib/task/start-task/components/start-task-cloud.component.ts "Defined in start-task-cloud.component.ts")
+# [Start Task Cloud Component](../../lib/lib/process-services-cloud/src/lib/task/start-task/components/start-task-cloud.component.ts "Defined in start-task-cloud.component.ts")
 
 Creates/starts a new task for the specified app.
 

@@ -5,7 +5,7 @@ Status: Experimental
 Last reviewed: 2019-01-08
 ---
 
-# [Start Process Cloud Component](../../lib/process-services-cloud/src/lib/process/start-process/components/start-process-cloud.component.ts "Defined in start-process-cloud.component.ts")
+# [Start Process Cloud Component](../../lib/lib/process-services-cloud/src/lib/process/start-process/components/start-process-cloud.component.ts "Defined in start-process-cloud.component.ts")
 
 Starts a process.
 
@@ -36,9 +36,9 @@ Starts a process.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| cancel | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when the starting process is cancelled |
-| error | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when an error occurs. |
-| success | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when the process is successfully started. |
+| cancel | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when the starting process is cancelled |
+| error | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when an error occurs. |
+| success | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`ProcessInstanceCloud`](../../lib/lib/process-services-cloud/src/lib/process/start-process/models/process-instance-cloud.model.ts)`>` | Emitted when the process is successfully started. |
 
 ## Details
 
