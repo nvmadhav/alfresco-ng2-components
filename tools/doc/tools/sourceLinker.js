@@ -16,7 +16,7 @@ function processDocs(mdCache, aggData, errorMessages) {
         var classInfo = aggData.classInfo[className];
         var sourcePath = classInfo ? classInfo.sourcePath : '';
         var titleHeading = unist_util_select_1.select('heading[depth=1]:first-of-type', tree);
-        if (titleHeading && titleHeading.children && titleHeading.children[0].type === "text") {
+        if (titleHeading.children[0].type === "text") {
             var titleText = titleHeading.children[0];
             titleHeading.children[0] = {
                 type: 'link',
@@ -25,7 +25,7 @@ function processDocs(mdCache, aggData, errorMessages) {
                 children: [titleText]
             };
         }
-        else if ((titleHeading && titleHeading.children[0].type === "link") && sourcePath) {
+        else if ((titleHeading.children[0].type === "link") && sourcePath) {
             var linkElem = titleHeading.children[0];
             linkElem.url = "../../" + sourcePath;
             linkElem.title = "Defined in " + path.basename(sourcePath);

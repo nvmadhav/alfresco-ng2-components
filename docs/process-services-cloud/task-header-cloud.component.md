@@ -5,7 +5,7 @@ Status: Experimental
 Last reviewed: 2019-01-18
 ---
 
-# [Task Header Cloud Component](../../lib/lib/process-services-cloud/src/lib/task/task-header/components/task-header-cloud.component.ts "Defined in task-header-cloud.component.ts")
+# [Task Header Cloud Component](../../lib/process-services-cloud/src/lib/task/task-header/components/task-header-cloud.component.ts "Defined in task-header-cloud.component.ts")
 
 Shows all the information related to a task.
 
