@@ -27,7 +27,7 @@ import {
     CardViewUpdateService,
     IdentityUserService } from '@alfresco/adf-core';
 import { TaskHeaderCloudService } from '../services/task-header-cloud.service';
-import { TaskDetailsCloudModel } from '../../start-task/models/task-details-cloud.model';
+import { TaskDetailsCloudModel, TaskStatusEnum } from '../../start-task/models/task-details-cloud.model';
 import { Router } from '@angular/router';
 import { TaskCloudService } from '../../services/task-cloud.service';
 
@@ -227,7 +227,7 @@ export class TaskHeaderCloudComponent implements OnInit {
     }
 
     isCompleted() {
-        return this.taskDetails && this.taskDetails.status && this.taskDetails.status.toLowerCase() === 'completed';
+        return this.taskDetails && this.taskDetails.status && this.taskDetails.status.toUpperCase() === TaskStatusEnum.COMPLETED;
     }
 
     canClaimTask() {

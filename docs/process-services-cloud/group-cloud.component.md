@@ -36,8 +36,8 @@ Searches Groups.
 
 | Name | Type | Description |
 | ---- | ---- | ----------- |
-| removeGroup | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`GroupModel`](../../lib/lib/process-services-cloud/src/lib/group/models/group.model.ts)`>` | Emitted when a group is removed. |
-| selectGroup | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`GroupModel`](../../lib/lib/process-services-cloud/src/lib/group/models/group.model.ts)`>` | Emitted when a group is selected. |
+| removeGroup | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`GroupModel`](../../lib/process-services-cloud/src/lib/group/models/group.model.ts)`>` | Emitted when a group is removed. |
+| selectGroup | [`EventEmitter`](https://angular.io/api/core/EventEmitter)`<`[`GroupModel`](../../lib/process-services-cloud/src/lib/group/models/group.model.ts)`>` | Emitted when a group is selected. |
 
 ## Details
 
